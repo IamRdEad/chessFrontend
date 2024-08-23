@@ -1,35 +1,30 @@
 import { useState, useEffect } from 'react';
-import { over } from 'stompjs';
-import SockJS from 'sockjs-client';
+import Stomp from 'stompjs';
 
 export const useWebSocketConnection = () => {
   const [stompClient, setStompClient] = useState(null);
 
   const connect = () => {
-    const socket = new SockJS("http://localhost:8080/ws");
-    const client = over(socket);
+    const client = Stomp.client("ws://localhost:8080/ws");
     client.connect({}, (frame) => {
       console.log('Connected: ' + frame);
       setStompClient(client);
-
-      client.subscribe('/topic/Response', (response) => {
-        const message = JSON.parse(response.body);
-        console.log('Message content:', message.content + "\nMessage code: " + message.code);
-
-        if (message.code === 200) {
-          window.location.href = '/chessboard'; 
-        } else {
-          alert(message.content);
-        }
-      });
     }, (error) => {
       console.log('Connection Error', error);
     });
   };
 
-  const sendMessage = (destination, message) => {
+  const sendMessage = (destination, message, callback) => {
     if (stompClient && stompClient.connected) {
       stompClient.send(destination, {}, JSON.stringify(message));
+
+      stompClient.subscribe('/topic/Response', (response) => {
+        const message = JSON.parse(response.body);
+
+        if (callback) {
+          callback(message);
+        }
+      });
     } else {
       console.error('WebSocket client is not connected.');
     }

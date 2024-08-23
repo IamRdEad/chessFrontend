@@ -1,6 +1,7 @@
 import React from 'react';
 import chessBoard from '../assets/chessBoard.png';
 import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom';
 
 function Hero() {
     return (
@@ -27,10 +28,10 @@ function Hero() {
               analze your game. didnt sign up yet? now its the time
             </p>
             <div className="d-grid gap-2 d-md-flex justify-content-md-start">
-              <Button variant="primary" size="lg" className="px-4 me-md-2">
+              <Button as={Link} to="/signin" variant="primary" size="lg" className="px-4 me-md-2">
                 Sign In
               </Button>
-              <Button variant="outline-secondary" size="lg" className="px-4">
+              <Button as={Link} to="/signup" variant="outline-secondary" size="lg" className="px-4">
                 Sign Up
               </Button>
             </div>

@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useWebSocketConnection } from '../hooks/useWebSocketConnection';
+import { useWebSocket } from '../WebSocketProvider';
 
 function SigninForm() {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-
-  const { sendMessage } = useWebSocketConnection();
+  const { sendMessage } = useWebSocket();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,10 +18,13 @@ function SigninForm() {
 
     sendMessage('/app/signin', message, (response) => {
       if (response.code === 200) {
-        navigate('/'); 
+        navigate('/ChessBoard');
+      } else {
+        alert(response.message);
       }
     });
   };
+
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">
       <div className="col-md-10 col-lg-6 col-xl-5">

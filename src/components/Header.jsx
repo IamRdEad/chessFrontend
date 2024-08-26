@@ -7,14 +7,14 @@ import logo from '../assets/logo.png'
 
 function Header(){
     return(
-        <Navbar expand="lg" className="custom-navbar p-2">
+        <Navbar expand="lg" className="custom-navbar p-1">
         <Container>
           <Navbar.Brand>
           <img
             src={logo}
             alt="Logo"
-            width="40"
-            height="40"
+            width="35"
+            height="35"
             className="d-inline-block align-center"
             style={{ marginRight: '15px' }}
           />

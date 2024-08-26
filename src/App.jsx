@@ -2,14 +2,11 @@ import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import HomePage from './components/HomePage';
 import SignupPage from './components/SignupPage';
-import { useWebSocketConnection } from './hooks/useWebSocketConnection';
 import SigninPage from './components/SigninPage';
+import ChessBoardWebPage from './components/ChessBoardWebPage';
+import { WebSocketProvider } from './WebSocketProvider';
 
 function App() {
-  const { sendMessage } = useWebSocketConnection();
-
-
-
   const router = createBrowserRouter([
     {
       path: '/',
@@ -17,20 +14,22 @@ function App() {
     },
     {
       path: '/signup',
-      element: <SignupPage sendMessage={sendMessage} />
+      element: <SignupPage />
     },
     {
       path: '/signin',
-      element: <SigninPage sendMessage={sendMessage} />
+      element: <SigninPage />
+    },
+    {
+      path: '/ChessBoard',
+      element: <ChessBoardWebPage />
     },
   ]);
 
   return (
-    <div>
-      <RouterProvider 
-        router={router}
-      />
-    </div>
+    <WebSocketProvider>
+      <RouterProvider router={router} />
+    </WebSocketProvider>
   );
 }
 

@@ -5,6 +5,7 @@ const WebSocketContext = createContext(null);
 
 export const WebSocketProvider = ({ children }) => {
   const [stompClient, setStompClient] = useState(null);
+  const [username, setUsername] = useState(null);
 
   useEffect(() => {
     const connect = () => {
@@ -39,13 +40,11 @@ export const WebSocketProvider = ({ children }) => {
           callback(message);
         }
       });
-    } else {
-      console.error('WebSocket client is not connected.');
     }
   };
 
   return (
-    <WebSocketContext.Provider value={{ stompClient, sendMessage }}>
+    <WebSocketContext.Provider value={{ stompClient, sendMessage, username, setUsername }}>
       {children}
     </WebSocketContext.Provider>
   );

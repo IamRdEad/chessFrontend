@@ -6,7 +6,7 @@ function SigninForm() {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const { sendMessage } = useWebSocket();
+  const { sendMessage, setUsername } = useWebSocket();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -18,7 +18,8 @@ function SigninForm() {
 
     sendMessage('/app/signin', message, (response) => {
       if (response.code === 200) {
-        navigate('/ChessBoard');
+        setUsername(name); 
+        navigate('/ChessBoard', { state: { board: response.board } });
       } else {
         alert(response.message);
       }

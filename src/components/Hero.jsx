@@ -23,7 +23,7 @@ function Hero() {
             </h1>
             <p className="lead">
               this is a project made using react as the frondend for the web application 
-              and Javaspring to manage the backend in this chess game you will be able to 
+              and Java Spring to manage the backend in this chess game you will be able to 
               play against friends, play against the computer or just study sonme openings and
               analze your game. didnt sign up yet? now its the time
             </p>

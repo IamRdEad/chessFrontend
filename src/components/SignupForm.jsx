@@ -7,7 +7,7 @@ function SignupForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const { sendMessage } = useWebSocket();
+  const { sendMessage, setUsername } = useWebSocket(); // Include setUsername
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,13 +20,13 @@ function SignupForm() {
 
     sendMessage('/app/signup', message, (response) => {
       if (response.code === 100) {
+        setUsername(name); // Set the username in context
         navigate('/ChessBoard'); 
       } else {
         alert(response.message); 
       }
     });
   };
-
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">
       <div className="col-md-10 col-lg-6 col-xl-5">

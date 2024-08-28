@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useWebSocket } from '../WebSocketProvider';
+import MainMenu from './MainMenu';
 
 function SignupForm() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const { sendMessage, setUsername } = useWebSocket(); // Include setUsername
+  const { sendMessage, setUsername } = useWebSocket(); 
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,8 +21,8 @@ function SignupForm() {
 
     sendMessage('/app/signup', message, (response) => {
       if (response.code === 100) {
-        setUsername(name); // Set the username in context
-        navigate('/ChessBoard'); 
+        setUsername(name);
+        navigate('/Main', { state: { username: name } })
       } else {
         alert(response.message); 
       }

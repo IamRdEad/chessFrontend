@@ -19,7 +19,7 @@ function SigninForm() {
     sendMessage('/app/signin', message, (response) => {
       if (response.code === 200) {
         setUsername(name); 
-        navigate('/ChessBoard', { state: { board: response.board } });
+        navigate('/Main', { state: { username: name } })
       } else {
         alert(response.message);
       }

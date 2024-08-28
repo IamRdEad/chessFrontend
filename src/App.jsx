@@ -6,6 +6,7 @@ import SignupPage from './components/SignupPage';
 import SigninPage from './components/SigninPage';
 import ChessBoardWebPage from './components/ChessBoardWebPage';
 import { WebSocketProvider } from './WebSocketProvider';
+import MainMenu from './components/MainMenu';
 
 function App() {
   const router = createBrowserRouter([
@@ -24,6 +25,10 @@ function App() {
     {
       path: '/ChessBoard',
       element: <ChessBoardWebPage />
+    },
+    {
+      path: '/Main',
+      element: <MainMenu />
     },
   ]);
 
